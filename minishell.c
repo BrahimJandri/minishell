@@ -43,33 +43,46 @@ int    parse_qoute(char *rl)
     }
     return(0);
 }
-
-void split_args(char *rl)
+void split_args(char *p)
 {
-    int i;
-    int inside;
-    int len;
+    int start = 0;
+    int end = 0;
+    int inside = 0;
+    int i = 0;
 
-    len = ft_strlen(rl);
-    if(rl[0] == '|' || rl[len -1] == '|')
-        printf("syntax error near unexpected token `|'\n");
-    inside = 0;
-    i = 0;
-    if(rl == NULL)
-        return ;
-    while(rl[i] == ' ' || rl[i] == '\t' || rl[i] == '\n')
+    while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
         i++;
-    while (rl[i])
+    start = i;
+    while (p[i])
     {
-        if(rl[i] == '\"')
-            inside = 1;
-        else if(rl[i] == ' ' && !inside)
-            write(1, "\n", 1);
+        if (p[i] == '"')
+        {
+            inside = !inside;
+            i++;
+            continue;
+        }
+        if (inside || (p[i] != ' ' && p[i] != '\t' && p[i] != '\n'))
+            i++;
         else
-            write(1, &rl[i], 1);
-        i++;
+        {
+            end = i;
+            while (start < end)
+            {
+                printf("%c", p[start]);
+                start++;
+            }
+            printf("\n");
+            while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
+                i++;
+            start = i;
+        }
     }
-    write(1, "\n", 1);    
+    while (start < i)
+    {
+        printf("%c", p[start]);
+        start++;
+    }
+    printf("\n");
 }
 
 int main(void)
@@ -80,6 +93,8 @@ int main(void)
         rl = readline("minishell >");
         if (rl && *rl)
             add_history(rl);
+        if(rl[0] == '|' || rl[ft_strlen(rl) -1] == '|')
+            printf("syntax error near unexpected token `|'\n");
         split_args(rl);
         if (parse_qoute(rl))
             printf("Syntax Error: parsing quote error [KO]\n");

@@ -28,7 +28,7 @@ typedef struct s_table
 }               t_table;
 
 
-void    split_args(char *rl);
+void    split_args(char *p);
 int     parse_qoute(char *rl);
 int     check_next(char *first, char next);
 
