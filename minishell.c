@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/28 11:54:09 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/28 12:21:27 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int	main(void)
 			break ;
 		if (rl && *rl)
 			add_history(rl);
+		if(ft_strncmp(rl, "clear", 5) == 0)
+			rl_clear_display(1,0);
 		if (rl[0] == '|' || rl[ft_strlen(rl) - 1] == '|')
 			printf("syntax error near unexpected token `|'\n");
 		while (rl[i] == ' ' || rl[i] == '\t' || rl[i] == '\n')
