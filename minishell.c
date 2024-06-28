@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/28 11:15:49 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/28 11:54:09 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(void)
 		if (parse_qoute(rl))
 			printf("Syntax Error: parsing quote error [KO]\n");
 		else
-			printf("%s [OK]\n", rl);
+			printf("%s Syntax Correct [OK]\n", rl);
 	}
 	return (0);
 }
