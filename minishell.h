@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/28 11:31:48 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:23:08 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_table
 typedef struct s_token
 {
 	char *token;
+	char *type;
 	struct s_token *next;
 }				t_token;
 

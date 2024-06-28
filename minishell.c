@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/28 12:21:27 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/28 16:16:36 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	split_args(char *p, int start, int inside)
 	int	end;
 	int	i;
 
-	end = 0;
 	i = 0;
 	while (p[i])
 	{
@@ -57,7 +56,6 @@ void	split_args(char *p, int start, int inside)
 		{
 			inside = !inside;
 			i++;
-			continue ;
 		}
 		if (inside || (p[i] != ' ' && p[i] != '\t' && p[i] != '\n'))
 			i++;
@@ -98,7 +96,7 @@ int	main(void)
 		if (parse_qoute(rl))
 			printf("Syntax Error: parsing quote error [KO]\n");
 		else
-			printf("%s Syntax Correct [OK]\n", rl);
+			printf("Syntax Correct [OK]\n");
 	}
 	return (0);
 }
