@@ -5,7 +5,7 @@ LDFLAGS = -lreadline
 RM = rm -f
 LIBFT = Libft/libft.a
 
-SRC = minishell.c
+SRC = minishell.c create_args.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -25,4 +25,5 @@ fclean: clean
 
 re: fclean all
 
+.SECONDARY: $(OBJ)
 .PHONY: all clean fclean re
