@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 08:13:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/29 11:22:37 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/29 12:20:38 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void make_words(char *p, int start, int end)
     while (start < end)
         word[i++] = p[start++];
     word[i] = '\0';
-    ft_lstadd_back(&new_word, ft_new_token(final_word));
+    ft_lstadd_back(&new_word, ft_new_token(word));
     tmp = new_word;
     while(tmp)
     {

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/29 11:25:31 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/29 15:30:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,33 +93,43 @@ void	split_args(char *p, int start, int inside)
 	}
 	make_words(p, start, i);
 }
+void first_parse(char *rl)
+{
+	int		i;
+	int		inside;
+	char *trimmed_rl;
+	
+	i = 0;
+	inside = 0;
+	
+	if (rl && *rl)
+		add_history(rl);
+	if(ft_strncmp(rl, "clear", 5) == 0)
+		rl_clear_display(1,0);
+	trimmed_rl = ft_strtrim(rl, " \t\n");
+	free(rl);
+	if (trimmed_rl[0] == '|' || trimmed_rl[ft_strlen(trimmed_rl) - 1] == '|')
+		printf("syntax error near unexpected token `|'\n");
+	rl = trimmed_rl;
+	split_args(rl, i, inside);
+	if (parse_qoute(rl))
+		printf("Syntax Error: parsing quote error [KO]\n");
+	else
+		printf("Syntax Correct [OK]\n");
+}
 
 int	main(void)
 {
 	char	*rl;
-	int		i;
-	int		inside;
-
-	i = 0;
-	inside = 0;
 	while (1)
 	{
 		rl = readline("minishell> ");
 		if (!rl)
 			break ;
-		if (rl && *rl)
-			add_history(rl);
-		if(ft_strncmp(rl, "clear", 5) == 0)
-			rl_clear_display(1,0);
-		if (rl[0] == '|' || rl[ft_strlen(rl) - 1] == '|')
-			printf("syntax error near unexpected token `|'\n");
-		while (rl[i] == ' ' || rl[i] == '\t' || rl[i] == '\n')
-			i++;
-		split_args(rl, i, inside);
-		if (parse_qoute(rl))
-			printf("Syntax Error: parsing quote error [KO]\n");
-		else
-			printf("Syntax Correct [OK]\n");
+		while(rl[0] == '\0')
+			rl = readline("minishell> ");
+		first_parse(rl);
 	}
+	free(rl);
 	return (0);
 }
