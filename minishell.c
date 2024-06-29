@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/28 16:16:36 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/29 11:25:31 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,29 @@ int	parse_qoute(char *rl)
 		i++;
 	}
 	return (0);
+}
+char *parse_pipe(char *p)
+{
+    int i;
+    int j;
+    char *new_p;
+    
+    i = 0;
+    new_p = NULL;
+    while(p[i])
+    {
+        j = 0;
+        if(p[0] == '|' && p[1] == '\0')
+            return(p);
+        else if(p[i] == '|' && p[i + 1] != '\0' && p[i - 1])
+        {
+            new_p[j] = p[i];
+            new_p[j + 1] = '\0';
+            return(new_p);
+        }
+        i++;
+    }
+    return (p);
 }
 
 void	split_args(char *p, int start, int inside)

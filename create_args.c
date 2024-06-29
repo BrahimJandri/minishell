@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 08:13:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/28 18:57:04 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/29 11:22:37 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_token *ft_new_token(char *content)
         return NULL;
         
     new_node->token = content;
-    // ghid argis t3raf isiga token(pipe or redirection) ola arg
     new_node->type = type(content);
     new_node->next = NULL; 
     return new_node;
@@ -63,6 +62,7 @@ void make_words(char *p, int start, int end)
     char *word;
     int i;
     t_token *new_word;
+    t_token *tmp;
 
     word = (char *)malloc((end - start + 1) * sizeof(char));
     if (!word)
@@ -71,33 +71,17 @@ void make_words(char *p, int start, int end)
         return;
     }
     new_word = NULL;
-    // if (!new_word)
-    // {
-    //     perror("Failed to allocate memory for new_word");
-    //     free(word);
-    //     return;
-    // }
     i = 0;
     while (start < end)
         word[i++] = p[start++];
     word[i] = '\0';
-    ft_lstadd_back(&new_word, ft_new_token(word));
-
-    // if (new_word->token)
-        // printf("ARG: %s\nTYPE: %s\n", new_word->token, new_word->type);
-    // else
-        // printf("ARG is NULL\n");
-    
-  t_token *tmp;
-
-  tmp = new_word;
-
-  while(tmp)
-  {
-    printf("TYPE = %s ==> [token = %s]\n",tmp->type, tmp->token);
-    tmp =  tmp->next;
-  }
-    
+    ft_lstadd_back(&new_word, ft_new_token(final_word));
+    tmp = new_word;
+    while(tmp)
+    {
+        printf("TYPE = %s ==> [token = %s]\n",tmp->type, tmp->token);
+        tmp =  tmp->next;
+    }  
     free(word);
     free(new_word);
 }
