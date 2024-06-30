@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/30 09:56:55 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/30 10:24:13 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void split_args(char *p, int start, int inside)
                 }
                 make_words(p, i, i + 1);
                 i++;
+                while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
+                    i++;
                 start = i;
             }
             else
@@ -108,6 +110,7 @@ void split_args(char *p, int start, int inside)
     if (i > start)
         make_words(p, start, i);
 }
+
 
 void first_parse(char *rl)
 {
