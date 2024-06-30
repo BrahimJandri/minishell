@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/29 15:30:02 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/30 09:56:55 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,32 +67,48 @@ char *parse_pipe(char *p)
     return (p);
 }
 
-void	split_args(char *p, int start, int inside)
+void split_args(char *p, int start, int inside)
 {
-	int	end;
-	int	i;
+    int end;
+    int i;
 
-	i = 0;
-	while (p[i])
-	{
-		if (p[i] == '"')
-		{
-			inside = !inside;
-			i++;
-		}
-		if (inside || (p[i] != ' ' && p[i] != '\t' && p[i] != '\n'))
-			i++;
-		else
-		{
-			end = i;
-			make_words(p, start, end);
-			while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
-				i++;
-			start = i;
-		}
-	}
-	make_words(p, start, i);
+    i = 0;
+    while (p[i])
+    {
+        if (p[i] == '"')
+        {
+            inside = !inside;
+            i++;
+        }
+        if (inside || (p[i] != ' ' && p[i] != '\t' && p[i] != '\n' && p[i] != '|'))
+            i++;
+        else
+        {
+            if (p[i] == '|')
+            {
+                if (i > start)
+                {
+                    end = i;
+                    make_words(p, start, end);
+                }
+                make_words(p, i, i + 1);
+                i++;
+                start = i;
+            }
+            else
+            {
+                end = i;
+                make_words(p, start, end);
+                while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
+                    i++;
+                start = i;
+            }
+        }
+    }
+    if (i > start)
+        make_words(p, start, i);
 }
+
 void first_parse(char *rl)
 {
 	int		i;
