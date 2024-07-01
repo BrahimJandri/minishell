@@ -5,7 +5,7 @@ LDFLAGS = -lreadline
 RM = rm -f
 LIBFT = Libft/libft.a
 
-SRC = minishell.c create_args.c
+SRC = minishell.c
 
 OBJ = $(SRC:.c=.o)
 
