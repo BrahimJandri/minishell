@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/30 10:24:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:08:41 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char *parse_pipe(char *p)
         }
         i++;
     }
-    return (p);
+    return (p);\
 }
 
 void split_args(char *p, int start, int inside)

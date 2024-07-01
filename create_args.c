@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 08:13:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/29 12:20:38 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/06/30 12:12:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void    ft_lstadd_back(t_token **lst, t_token *new)
     while (tmp->next)
         tmp = tmp->next;
     tmp->next = new;
+    new->prev = tmp;
 }
 
 char    *type(char *p)
@@ -53,7 +54,8 @@ t_token *ft_new_token(char *content)
         
     new_node->token = content;
     new_node->type = type(content);
-    new_node->next = NULL; 
+    new_node->next = NULL;
+    new_node->prev = NULL; 
     return new_node;
 }
 
@@ -79,7 +81,7 @@ void make_words(char *p, int start, int end)
     tmp = new_word;
     while(tmp)
     {
-        printf("TYPE = %s ==> [token = %s]\n",tmp->type, tmp->token);
+        printf("TYPE = %s ==> [token = %s] [add = %p] [add prev = %p]\n",tmp->type, tmp->token, tmp, tmp->prev);
         tmp =  tmp->next;
     }  
     free(word);
