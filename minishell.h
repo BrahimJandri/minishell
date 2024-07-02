@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/06/30 12:04:10 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/02 11:28:49 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 
 typedef struct s_table
 {
-	char			*arg;
+	char			**arg;
 	char			*token;
 	char			*type;
 }					t_table;
@@ -35,9 +35,9 @@ typedef struct s_token
 }				t_token;
 
 t_token				*ft_new_token(char *content);
-void				split_args(char *p, int start, int inside);
+void 				first_parse(char *rl, t_token **head);
 int					parse_qoute(char *rl);
 int					check_next(char *first, char next);
-void				make_words(char *p, int start, int end);
+void				make_words(char *p, int start, int end, t_token **head);
 
 #endif

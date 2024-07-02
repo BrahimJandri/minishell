@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/01 14:46:49 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/02 12:42:17 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,29 +43,7 @@ int	parse_qoute(char *rl)
 	}
 	return (0);
 }
-char *parse_pipe(char *p)
-{
-    int i;
-    int j;
-    char *new_p;
-    
-    i = 0;
-    new_p = NULL;
-    while(p[i])
-    {
-        j = 0;
-        if(p[0] == '|' && p[1] == '\0')
-            return(p);
-        else if(p[i] == '|' && p[i + 1] != '\0' && p[i - 1])
-        {
-            new_p[j] = p[i];
-            new_p[j + 1] = '\0';
-            return(new_p);
-        }
-        i++;
-    }
-    return (p);\
-}
+
 void    ft_lstadd_back(t_token **lst, t_token *new)
 {
     t_token *tmp;
@@ -113,42 +91,28 @@ t_token *ft_new_token(char *content)
     return new_node;
 }
 
-t_token *new_word;
 
-void make_words(char *p, int start, int end)
+void make_words(char *p, int start, int end, t_token **head)
 {
     char *word;
     int i;
-    t_token *tmp;
-    // t_token *last;
-    
+
     word = (char *)malloc((end - start + 1) * sizeof(char));
     if (!word)
     {
         perror("Failed to allocate memory for word");
         return;
     }
-    // new_word = NULL;
     i = 0;
     while (start < end)
         word[i++] = p[start++];
     word[i] = '\0';
-    ft_lstadd_back(&new_word, ft_new_token(word));
-    tmp = new_word;
-    // while(tmp)
-    // {
-    //     last = tmp;
-    //     tmp = tmp->next;
-    // }
-   
-    // free(word);
-    // free(new_word);
+    ft_lstadd_back(head, ft_new_token(word));
 }
 
-void split_args(char *p, int start, int inside)
+void split_args(char *p, int start, int inside, t_token **head)
 {
     int end;
-    t_token *tmp;
     int i;
 
     i = 0;
@@ -168,9 +132,9 @@ void split_args(char *p, int start, int inside)
                 if (i > start)
                 {
                     end = i;
-                    make_words(p, start, end);
+                    make_words(p, start, end, head);
                 }
-                make_words(p, i, i + 1);
+                make_words(p, i, i + 1, head);
                 i++;
                 while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
                     i++;
@@ -179,7 +143,7 @@ void split_args(char *p, int start, int inside)
             else
             {
                 end = i;
-                make_words(p, start, end);
+                make_words(p, start, end, head);
                 while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
                     i++;
                 start = i;
@@ -187,20 +151,14 @@ void split_args(char *p, int start, int inside)
         }
     }
     if (i > start)
-        make_words(p, start, i);
-    tmp = new_word;
-    while (tmp->next)
-        tmp = tmp->next;
-    while(tmp)
-    {
-        printf("TYPE = %s ==> [token = %s] [add = %p] [add prev = %p]\n",tmp->type, tmp->token, tmp, tmp->prev);
-        tmp =  tmp->prev;
-    }
-    
+        make_words(p, start, i, head);
 }
 
+void clear_screen() {
+    printf("\033[H\033[J");
+}
 
-void first_parse(char *rl)
+void first_parse(char *rl, t_token **head)
 {
 	int		i;
 	int		inside;
@@ -208,26 +166,48 @@ void first_parse(char *rl)
 	
 	i = 0;
 	inside = 0;
-	
-	if (rl && *rl)
-		add_history(rl);
+	add_history(rl);
 	if(ft_strncmp(rl, "clear", 5) == 0)
-		rl_clear_display(1,0);
+		clear_screen();
 	trimmed_rl = ft_strtrim(rl, " \t\n");
 	free(rl);
 	if (trimmed_rl[0] == '|' || trimmed_rl[ft_strlen(trimmed_rl) - 1] == '|')
-		printf("syntax error near unexpected token `|'\n");
+    {
+		printf("syntax error near unexpected token |'\n");
+        rl = readline("minishell> ");    
+    }
 	rl = trimmed_rl;
-	split_args(rl, i, inside);
 	if (parse_qoute(rl))
+    {
 		printf("Syntax Error: parsing quote error [KO]\n");
+        rl = readline("minishell> ");       
+    }
 	else
 		printf("Syntax Correct [OK]\n");
+	split_args(rl, i, inside, head);
 }
+
+void free_tokens(t_token *head)
+{
+    t_token *tmp;
+
+    while (head)
+    {
+        tmp = head;
+        head = head->next;
+        free(tmp->token);
+        free(tmp);
+    }
+}
+
 
 int	main(void)
 {
 	char	*rl;
+    t_token *head;
+    t_token *tmp;
+    
+    head = NULL;
 	while (1)
 	{
 		rl = readline("minishell> ");
@@ -235,8 +215,17 @@ int	main(void)
 			break ;
 		while(rl[0] == '\0')
 			rl = readline("minishell> ");
-		first_parse(rl);
+		first_parse(rl, &head);
+        tmp = head;
+        while (tmp)
+        {
+            printf("[TOKEN = %s] == [TYPE = %s]\n", tmp->token, tmp->type);
+            tmp = tmp->next;   
+        }
+        free_tokens(head);
+        head = NULL;
 	}
 	free(rl);
 	return (0);
 }
+
