@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/03 15:40:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/03 18:05:12 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char    *type(char *p)
     else if(ft_strncmp(p, "<", ft_strlen(p)) == 0)
         return("RED_INP");
     else if(ft_strncmp(p, "<<", ft_strlen(p)) == 0)
-        return("APP_RED_INP");
+        return("HER_DOC");
     else if(ft_strncmp(p, ">>", ft_strlen(p)) == 0)
         return("APP_RED_OUT");
     else
