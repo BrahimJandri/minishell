@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/03 07:43:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:40:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,15 @@ void    ft_lstadd_back(t_token **lst, t_token *new)
 
 char    *type(char *p)
 {
-    if(p[0] == '|')
+    if(ft_strncmp(p, "|", ft_strlen(p)) == 0)
         return("PIPE");
-    else if(p[0] == '>' && p[1] != '>')
+    else if(ft_strncmp(p, ">", ft_strlen(p)) == 0)
         return("RED_OUT");
-    else if(p[0] == '<' && p[1] != '<')
+    else if(ft_strncmp(p, "<", ft_strlen(p)) == 0)
         return("RED_INP");
-    else if(p[0] == '<' && p[1] == '<')
+    else if(ft_strncmp(p, "<<", ft_strlen(p)) == 0)
         return("APP_RED_INP");
-    else if(p[0] == '>' && p[1] == '>')
+    else if(ft_strncmp(p, ">>", ft_strlen(p)) == 0)
         return("APP_RED_OUT");
     else
         return("ARG");
@@ -109,6 +109,7 @@ void make_words(char *p, int start, int end, t_token **head)
     word[i] = '\0';
     ft_lstadd_back(head, ft_new_token(word));
 }
+
 
 void split_args(char *p, int start, int inside, t_token **head)
 {
@@ -150,7 +151,8 @@ void split_args(char *p, int start, int inside, t_token **head)
 }
 
 
-void clear_screen() {
+void clear_screen()
+{
     printf("\033[H\033[J");
 }
 
@@ -184,6 +186,7 @@ void first_parse(char *rl, t_token **head)
 	split_args(rl, i, inside, head);
 }
 
+
 void free_tokens(t_token *head)
 {
     t_token *tmp;
@@ -192,8 +195,8 @@ void free_tokens(t_token *head)
     {
         tmp = head;
         head = head->next;
-        free(tmp->token);  // Free the token string
-        free(tmp);  // Free the token node
+        free(tmp->token);
+        free(tmp);
     }
 }
 
