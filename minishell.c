@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/02 12:42:17 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/03 07:43:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,50 +113,47 @@ void make_words(char *p, int start, int end, t_token **head)
 void split_args(char *p, int start, int inside, t_token **head)
 {
     int end;
-    int i;
+    int i = 0;
+    char quote = 0;
 
-    i = 0;
     while (p[i])
     {
-        if (p[i] == '"')
+        if (p[i] == '"' || p[i] == '\'')
         {
-            inside = !inside;
+            if (quote == 0)
+            {
+                quote = p[i];
+                inside = 1;
+            }
+            else if (quote == p[i])
+            {
+                quote = 0;
+                inside = 0;
+            }
             i++;
         }
-        if (inside || (p[i] != ' ' && p[i] != '\t' && p[i] != '\n' && p[i] != '|'))
-            i++;
-        else
+        else if (!inside && (p[i] == ' ' || p[i] == '\t' || p[i] == '\n' || p[i] == '|'))
         {
-            if (p[i] == '|')
-            {
-                if (i > start)
-                {
-                    end = i;
-                    make_words(p, start, end, head);
-                }
-                make_words(p, i, i + 1, head);
-                i++;
-                while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
-                    i++;
-                start = i;
-            }
-            else
-            {
-                end = i;
+            end = i;
+            if (end > start)
                 make_words(p, start, end, head);
-                while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
-                    i++;
-                start = i;
-            }
+            if (p[i] == '|')
+                make_words(p, i, i + 1, head);
+            while (p[++i] == ' ' || p[i] == '\t' || p[i] == '\n');
+            start = i;
         }
+        else
+            i++;
     }
     if (i > start)
         make_words(p, start, i, head);
 }
 
+
 void clear_screen() {
     printf("\033[H\033[J");
 }
+
 
 void first_parse(char *rl, t_token **head)
 {
@@ -195,8 +192,8 @@ void free_tokens(t_token *head)
     {
         tmp = head;
         head = head->next;
-        free(tmp->token);
-        free(tmp);
+        free(tmp->token);  // Free the token string
+        free(tmp);  // Free the token node
     }
 }
 
