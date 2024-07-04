@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/02 11:28:49 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/04 09:42:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,16 @@ typedef struct s_token
 	struct s_token *prev;
 }				t_token;
 
-t_token				*ft_new_token(char *content);
-void 				first_parse(char *rl, t_token **head);
-int					parse_qoute(char *rl);
-int					check_next(char *first, char next);
-void				make_words(char *p, int start, int end, t_token **head);
+void ft_lstadd_back(t_token **lst, t_token *new);
+char *type(char *p);
+t_token *ft_new_token(char *content);
+void make_words(char *p, int start, int end, t_token **head);
+void split_args(char *p, int start, int inside, t_token **head);
+void free_tokens(t_token *head);
+void clear_screen();
+void first_parse(char *rl, t_token **head);
+int parse_quote(char *rl);
+char *ft_strtrim(char const *s1, char const *set);
+int check_next(char *first, char next);
 
 #endif
