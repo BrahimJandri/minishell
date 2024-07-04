@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 09:42:39 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/04 16:39:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,26 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef struct s_table
-{
-	char			**arg;
-	char			*token;
-	char			*type;
-}					t_table;
+typedef enum tokens {
+	PIPE = 1,
+	RED_OUT = 2,
+	RED_IN = 3,
+	HERDOC = 4,
+	APP_OUT = 5,
+	ARG = 6,
+}tokens;
+
 
 typedef struct s_token
 {
 	char *token;
-	char *type;
+	tokens type;
 	struct s_token *next;
 	struct s_token *prev;
 }				t_token;
 
 void ft_lstadd_back(t_token **lst, t_token *new);
-char *type(char *p);
+int type(char *p);
 t_token *ft_new_token(char *content);
 void make_words(char *p, int start, int end, t_token **head);
 void split_args(char *p, int start, int inside, t_token **head);

@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   Parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:44 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 09:40:54 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/04 16:50:30 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int check_next(char *first, char next)
+{
+    int i = 0;
+    while (first[i] && first[i] != next)
+        i++;
+    return i;
+}
 
 int parse_quote(char *rl)
 {
@@ -19,7 +27,8 @@ int parse_quote(char *rl)
 
     while (rl[i] == ' ' || rl[i] == '\t' || rl[i] == '\n')
         i++;
-    while (rl[i]) {
+    while (rl[i])
+    {
         if (rl[i] == '"' || rl[i] == '\'') {
             j = check_next(&rl[i + 1], rl[i]);
             if (rl[i + j + 1] != rl[i])
@@ -47,17 +56,13 @@ void first_parse(char *rl, t_token **head)
         clear_screen();
     trimmed_rl = ft_strtrim(rl, " \t\n");
     free(rl);
-    if (trimmed_rl[0] == '|' || trimmed_rl[strlen(trimmed_rl) - 1] == '|') {
+    if (trimmed_rl[0] == '|' || trimmed_rl[strlen(trimmed_rl) - 1] == '|')
         printf("syntax error near unexpected token '|'\n");
-        rl = readline("minishell> ");
-    }
     rl = trimmed_rl;
-    if (parse_quote(rl)) {
+    if (parse_quote(rl))
         printf("Syntax Error: parsing quote error [KO]\n");
-        rl = readline("minishell> ");
-    } else {
+    else
         printf("Syntax Correct [OK]\n");
-    }
     split_args(rl, i, inside, head);
 }
 

@@ -6,19 +6,12 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 09:41:18 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/04 16:50:23 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int check_next(char *first, char next)
-{
-    int i = 0;
-    while (first[i] && first[i] != next)
-        i++;
-    return i;
-}
 
 t_token *ft_new_token(char *content)
 {
@@ -50,20 +43,20 @@ void ft_lstadd_back(t_token **lst, t_token *new)
     new->prev = tmp;
 }
 
-char    *type(char *p)
-{
+int    type(char *p)
+{    
     if(ft_strncmp(p, "|", ft_strlen(p)) == 0)
-        return("PIPE");
+        return(1);
     else if(ft_strncmp(p, ">", ft_strlen(p)) == 0)
-        return("RED_OUT");
+        return(2);
     else if(ft_strncmp(p, "<", ft_strlen(p)) == 0)
-        return("RED_INP");
+        return(3);
     else if(ft_strncmp(p, "<<", ft_strlen(p)) == 0)
-        return("HER_DOC");
+        return(4);
     else if(ft_strncmp(p, ">>", ft_strlen(p)) == 0)
-        return("APP_RED_OUT");
+        return(5);
     else
-        return("ARG");
+        return(6);
 }
 
 void make_words(char *p, int start, int end, t_token **head)
