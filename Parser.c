@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:44 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 16:50:30 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:39:03 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void first_parse(char *rl, t_token **head)
     rl = trimmed_rl;
     if (parse_quote(rl))
         printf("Syntax Error: parsing quote error [KO]\n");
-    else
-        printf("Syntax Correct [OK]\n");
     split_args(rl, i, inside, head);
 }
 
