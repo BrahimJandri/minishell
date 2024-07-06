@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/06 10:08:31 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 19:00:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_lexer
 {
 	char			*token;
 	t_tokens		type;
+	int 			i;
 	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }					t_lexer;

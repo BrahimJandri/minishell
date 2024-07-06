@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/06 10:09:26 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 21:22:56 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_lexer	*ft_new_token(char *content)
 {
+	// static int i;
 	t_lexer	*new_node;
 
 	new_node = (t_lexer *)malloc(sizeof(t_lexer));
@@ -22,6 +23,7 @@ t_lexer	*ft_new_token(char *content)
 	new_node->token = content;
 	new_node->type = type(content);
 	new_node->next = NULL;
+	// new_node->i = i++;
 	new_node->prev = NULL;
 	return (new_node);
 }

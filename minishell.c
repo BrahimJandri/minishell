@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/06 10:08:54 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 21:23:40 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,12 @@ int	main(void)
 		if (!rl)
 			break ;
 		first_parse(rl, &head);
+		while(head)
+		{
+			printf("word [%s]  type[%i]  index[] \n", head->token, head->type);
+			head = head->next;
+		}
+		head->i = 0;
 		free_tokens(head);
 		head = NULL;
 	}
