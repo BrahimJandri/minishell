@@ -1,15 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: bjandri <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/11/22 12:22:53 by bjandri           #+#    #+#              #
-#    Updated: 2023/11/22 12:22:54 by bjandri          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME := libft.a
 FUNC := ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
        ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c \
@@ -29,12 +17,18 @@ RM := rm -rf
 all: $(NAME)
 
 $(NAME): $(OBJS)
+	@echo "\033[0;32mCompiling libft.a..."
 	@$(AR) $(NAME) $(OBJS)
 
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	@$(RM) $(OBJS) $(OBJSB)
+	@echo "\033[0;31mCleaning up object files..."
+	@$(RM) $(OBJS)
 
 fclean: clean
+	@echo "\033[0;31mCleaning up library and object files..."
 	@$(RM) $(NAME)
 
 re: fclean all

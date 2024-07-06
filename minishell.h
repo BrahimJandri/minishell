@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/06 10:02:51 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 10:08:31 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					type(char *p);
 t_lexer				*ft_new_token(char *content);
 void				make_words(char *p, int start, int end, t_lexer **head);
 void				split_args(char *p, int start, int inside, t_lexer **head);
-void				free_tokens(t_token *head);
+void				free_tokens(t_lexer *head);
 void				clear_screen(void);
 void				first_parse(char *rl, t_lexer **head);
 int					parse_quote(char *rl);

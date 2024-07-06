@@ -12,16 +12,21 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	make -C Libft
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LDFLAGS)
+	@echo "\033[0;32mCompiling minishell..."
+	@make -C Libft
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LDFLAGS)
+
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	make -C Libft clean
-	$(RM) $(OBJ)
+	@make -C Libft clean
+	@$(RM) $(OBJ)
 
 fclean: clean
-	make -C Libft fclean
-	$(RM) $(NAME)
+	@make -C Libft fclean
+	@$(RM) $(NAME)
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/06 09:52:14 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 10:08:54 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,7 @@
 int	main(void)
 {
 	char	*rl;
-	t_token	*head;
-	t_token	*tmp;
+	t_lexer	*head;
 
 	head = NULL;
 	while (1)
