@@ -5,7 +5,7 @@ LDFLAGS = -lreadline
 RM = rm -f
 LIBFT = Libft/libft.a
 
-SRC = minishell.c Parser.c Lexer.c
+SRC = minishell.c Parser.c Lexer.c helper_func.c
 
 OBJ = $(SRC:.c=.o)
 

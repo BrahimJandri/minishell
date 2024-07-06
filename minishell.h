@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 16:39:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 10:02:51 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,34 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-typedef enum tokens {
+typedef enum s_tokens
+{
 	PIPE = 1,
 	RED_OUT = 2,
 	RED_IN = 3,
 	HERDOC = 4,
 	APP_OUT = 5,
 	ARG = 6,
-}tokens;
+}					t_tokens;
 
-
-typedef struct s_token
+typedef struct s_lexer
 {
-	char *token;
-	tokens type;
-	struct s_token *next;
-	struct s_token *prev;
-}				t_token;
+	char			*token;
+	t_tokens		type;
+	struct s_lexer	*next;
+	struct s_lexer	*prev;
+}					t_lexer;
 
-void ft_lstadd_back(t_token **lst, t_token *new);
-int type(char *p);
-t_token *ft_new_token(char *content);
-void make_words(char *p, int start, int end, t_token **head);
-void split_args(char *p, int start, int inside, t_token **head);
-void free_tokens(t_token *head);
-void clear_screen();
-void first_parse(char *rl, t_token **head);
-int parse_quote(char *rl);
-char *ft_strtrim(char const *s1, char const *set);
-int check_next(char *first, char next);
+void				ft_lstadd_back(t_lexer **lst, t_lexer *new);
+int					type(char *p);
+t_lexer				*ft_new_token(char *content);
+void				make_words(char *p, int start, int end, t_lexer **head);
+void				split_args(char *p, int start, int inside, t_lexer **head);
+void				free_tokens(t_token *head);
+void				clear_screen(void);
+void				first_parse(char *rl, t_lexer **head);
+int					parse_quote(char *rl);
+char				*ft_strtrim(char const *s1, char const *set);
+int					check_next(char *first, char next);
 
 #endif

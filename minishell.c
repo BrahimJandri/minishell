@@ -15,18 +15,18 @@
 int	main(void)
 {
 	char	*rl;
-    t_token *head;
-    t_token *tmp;
-    
-    head = NULL;
+	t_token	*head;
+	t_token	*tmp;
+
+	head = NULL;
 	while (1)
 	{
 		rl = readline("minishell> ");
 		if (!rl)
 			break ;
 		first_parse(rl, &head);
-        free_tokens(head);
-        head = NULL;
+		free_tokens(head);
+		head = NULL;
 	}
 	free(rl);
 	return (0);
