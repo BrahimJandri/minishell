@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 16:44:55 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 09:52:14 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,10 @@ int	main(void)
 		rl = readline("minishell> ");
 		if (!rl)
 			break ;
-		while(rl[0] == '\0')
-			rl = readline("minishell> ");
 		first_parse(rl, &head);
-        tmp = head;
-        while (tmp)
-        {
-            printf("[TOKEN = %s] == [TYPE = %d]\n", tmp->token, tmp->type);
-            tmp = tmp->next;   
-        }
         free_tokens(head);
         head = NULL;
 	}
 	free(rl);
 	return (0);
 }
-

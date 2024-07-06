@@ -6,11 +6,27 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:44 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/05 07:39:03 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 09:27:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int    type(char *p)
+{    
+    if(ft_strncmp(p, "|", ft_strlen(p)) == 0)
+        return(1);
+    else if(ft_strncmp(p, ">", ft_strlen(p)) == 0)
+        return(2);
+    else if(ft_strncmp(p, "<", ft_strlen(p)) == 0)
+        return(3);
+    else if(ft_strncmp(p, "<<", ft_strlen(p)) == 0)
+        return(4);
+    else if(ft_strncmp(p, ">>", ft_strlen(p)) == 0)
+        return(5);
+    else
+        return(6);
+}
 
 int check_next(char *first, char next)
 {
@@ -57,10 +73,10 @@ void first_parse(char *rl, t_token **head)
     trimmed_rl = ft_strtrim(rl, " \t\n");
     free(rl);
     if (trimmed_rl[0] == '|' || trimmed_rl[strlen(trimmed_rl) - 1] == '|')
-        printf("syntax error near unexpected token '|'\n");
+        perror("syntax error near unexpected token '|'\n");
     rl = trimmed_rl;
     if (parse_quote(rl))
-        printf("Syntax Error: parsing quote error [KO]\n");
+        perror("Syntax Error: parsing quote error [KO]\n");
     split_args(rl, i, inside, head);
 }
 

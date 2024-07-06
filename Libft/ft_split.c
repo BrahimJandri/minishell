@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:18:05 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/03 10:32:54 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/05 07:45:10 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,20 +97,4 @@ char	**ft_split(char const *s, char c)
 	result = ft_words_split(result, s, c, word_counter);
 	return (result);
 }
-
-// #include <stdio.h>
-
-// int main()
-// {
-//     char **result = ft_split("hello world split me please ", ' ');
-
-//     for (int i = 0; result[i] != NULL; ++i)
-// 	{
-//         printf("Token %d: \n%s\n", i + 1, result[i]);
-// 		free(result[i]);
-//     }
-// 	free(result);
-// 		return (0);
-// }
-
 

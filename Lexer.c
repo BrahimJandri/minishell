@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/04 16:50:23 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/06 09:41:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,6 @@ void ft_lstadd_back(t_token **lst, t_token *new)
     new->prev = tmp;
 }
 
-int    type(char *p)
-{    
-    if(ft_strncmp(p, "|", ft_strlen(p)) == 0)
-        return(1);
-    else if(ft_strncmp(p, ">", ft_strlen(p)) == 0)
-        return(2);
-    else if(ft_strncmp(p, "<", ft_strlen(p)) == 0)
-        return(3);
-    else if(ft_strncmp(p, "<<", ft_strlen(p)) == 0)
-        return(4);
-    else if(ft_strncmp(p, ">>", ft_strlen(p)) == 0)
-        return(5);
-    else
-        return(6);
-}
 
 void make_words(char *p, int start, int end, t_token **head)
 {
@@ -75,24 +60,38 @@ void make_words(char *p, int start, int end, t_token **head)
     word[i] = '\0';
     ft_lstadd_back(head, ft_new_token(word));
 }
+void step_one(char *p, int inside, int quote, int i)
+{
+    if (quote == 0)
+    {
+        quote = p[i];
+        inside = 1;
+    }
+    else if (quote == p[i])
+    {
+        quote = 0;
+        inside = 0;
+    }
+}
+
 
 void split_args(char *p, int start, int inside, t_token **head)
 {
     int end;
-    int i = 0;
-    char quote = 0;
-
-    while (p[i]) {
-        if (p[i] == '"' || p[i] == '\'') {
-            if (quote == 0) {
-                quote = p[i];
-                inside = 1;
-            } else if (quote == p[i]) {
-                quote = 0;
-                inside = 0;
-            }
+    int i;
+    char quote;
+    
+    i = 0;
+    quote = 0;
+    while (p[i])
+    {
+        if (p[i] == '"' || p[i] == '\'')
+        {
+            step_one(p, inside, quote, i);
             i++;
-        } else if (!inside && (p[i] == ' ' || p[i] == '\t' || p[i] == '\n' || p[i] == '|')) {
+        }
+        else if (!inside && (p[i] == ' ' || p[i] == '\t' || p[i] == '\n' || p[i] == '|'))
+        {
             end = i;
             if (end > start)
                 make_words(p, start, end, head);
@@ -100,9 +99,9 @@ void split_args(char *p, int start, int inside, t_token **head)
                 make_words(p, i, i + 1, head);
             while (p[++i] == ' ' || p[i] == '\t' || p[i] == '\n');
             start = i;
-        } else {
-            i++;
         }
+        else
+            i++;
     }
     if (i > start)
         make_words(p, start, i, head);
