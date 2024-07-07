@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/07 13:16:50 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/07 16:53:59 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ void	make_words(char *p, int start, int end, t_lexer **head)
 }
 
 
-void	step_one(char *p, int inside, int quote, int i)
+void	step_one(char *p, int *inside, char *quote, int i)
 {
-	if (quote == 0)
+	if (*quote == 0)
 	{
-		quote = p[i];
-		inside = 1;
+		*quote = p[i];
+		*inside = 1;
 	}
-	else if (quote == p[i])
+	else if (*quote == p[i])
 	{
-		quote = 0;
-		inside = 0;
+		*quote = 0;
+		*inside = 0;
 	}
 }
 
@@ -57,18 +57,18 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 	{
 		if (p[i] == '"' || p[i] == '\'')
 		{
-			step_one(p, inside, quote, i);
+			step_one(p, &inside, &quote, i);
 			i++;
 		}
-		else if (!inside && (p[i] == ' ' || p[i] == '\t' || p[i] == '\n'
-				|| p[i] == '|' || p[i] == '>'))
+		else if (!inside && (p[i] == ' ' || p[i] == '\t' || p[i] == '\n' || p[i] == '|'))
 		{
 			end = i;
 			if (end > start)
 				make_words(p, start, end, head);
-			if (p[i] == '|' || p[i] == '>')
+			if (p[i] == '|')
 				make_words(p, i, i + 1, head);
-			while (p[++i] == ' ' || p[i] == '\t' || p[i] == '\n');
+			while (p[i] == ' ' || p[i] == '\t' || p[i] == '\n')
+				i++;
 			start = i;
 		}
 		else
@@ -77,6 +77,7 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 	if (i > start)
 		make_words(p, start, i, head);
 }
+
 
 void	free_tokens(t_lexer *head)
 {
