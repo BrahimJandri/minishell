@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/07 13:18:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:11:22 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,3 +45,8 @@ void	ft_lstadd_back(t_lexer **lst, t_lexer *new)
 	tmp->next = new;
 	new->prev = tmp;
 }
+
+// int is_whitespace(char *s)
+// {
+// 	if(*s == " \t\n")
+// }
