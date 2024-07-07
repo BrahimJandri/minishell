@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/06 19:00:25 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/07 10:19:39 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,14 @@ typedef struct s_lexer
 {
 	char			*token;
 	t_tokens		type;
-	int 			i;
+	int 			index;
 	struct s_lexer	*next;
 	struct s_lexer	*prev;
 }					t_lexer;
 
+t_lexer				*ft_new_token(char *content);
 void				ft_lstadd_back(t_lexer **lst, t_lexer *new);
 int					type(char *p);
-t_lexer				*ft_new_token(char *content);
 void				make_words(char *p, int start, int end, t_lexer **head);
 void				split_args(char *p, int start, int inside, t_lexer **head);
 void				free_tokens(t_lexer *head);
