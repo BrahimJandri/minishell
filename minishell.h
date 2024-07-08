@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/07 10:19:39 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/07 18:54:13 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,5 +49,6 @@ void				first_parse(char *rl, t_lexer **head);
 int					parse_quote(char *rl);
 char				*ft_strtrim(char const *s1, char const *set);
 int					check_next(char *first, char next);
+int 				is_whitespace(char c);
 
 #endif
