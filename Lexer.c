@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/08 11:43:05 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/09 16:37:30 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	free_tokens(t_lexer *head)
 	{
 		tmp = head;
 		head = head->next;
-		free(tmp->token);
+		free(tmp->word);
 		free(tmp);
 	}
 }

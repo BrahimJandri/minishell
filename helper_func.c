@@ -6,7 +6,7 @@
 /*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/07 18:57:19 by rachid           ###   ########.fr       */
+/*   Updated: 2024/07/09 16:35:35 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_lexer	*ft_new_token(char *content)
 	new_node = (t_lexer *)malloc(sizeof(t_lexer));
 	if (!new_node)
 		return (NULL);
-	new_node->token = content;
-	new_node->type = type(content);
+	new_node->word = content;
+	new_node->token = type(content);
 	new_node->next = NULL;
 	new_node->prev = NULL;
 	return (new_node);
