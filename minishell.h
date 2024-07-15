@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 09:48:00 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/15 13:16:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
+#include <signal.h>
+
+
 
 typedef enum s_builtins{
 	ECHO = 1,
@@ -76,6 +80,7 @@ int					parse_quote(char *rl);
 char				*ft_strtrim(char const *s1, char const *set);
 int					check_next(char *first, char next);
 int 				is_whitespace(char c);
+void 				cd_builtin(char *rl);
 int 				pwd_builtin(void);
 
 
