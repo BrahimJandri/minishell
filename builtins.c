@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:40:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 13:11:50 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:24:54 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,26 @@ int pwd_builtin(void)
     return(0);
 }
 
-
-void cd_builtin(char *rl)
+void echo_builtin(char **args)
 {
-    char *home_dir = getenv("HOME");
-    char *target_dir = NULL;
-
-    if (rl == NULL)
-        target_dir = home_dir;
-    else if (ft_strncmp(&rl[3], ".", 1) == 0)
-        target_dir = getenv("OLDPWD");
-    else 
-        target_dir = rl;
-    if (chdir(target_dir) != 0)
-        perror("cd");
-    else 
-        setenv("OLDPWD", getcwd(NULL, 0), 1);
+    int i;
+    int n_flag;
+    
+    i = 1;
+    n_flag = 0;
+    if (args[i] && !ft_strncmp(args[i], "-n", 2))
+    {
+        n_flag = 1;
+        i++;
+    }
+    while (args[i])
+    {
+        write(1, args[i], ft_strlen(args[i]));
+        if (args[i + 1])
+            write(1, " ", 1);
+        i++;
+    }
+    if (!n_flag)
+        write(1, "\n", 1);
 }
 

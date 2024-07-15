@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 13:16:25 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:25:53 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int					parse_quote(char *rl);
 char				*ft_strtrim(char const *s1, char const *set);
 int					check_next(char *first, char next);
 int 				is_whitespace(char c);
-void 				cd_builtin(char *rl);
+void 				echo_builtin(char **args);
 int 				pwd_builtin(void);
 
 

@@ -6,11 +6,12 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 13:26:08 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:27:41 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
 
 int main(void)
 {
@@ -28,8 +29,10 @@ int main(void)
 		first_parse(rl, &head);
 		while(head)
 		{
-			printf("word [%s]  type[%i] index[%d] \n", head->word, head->token, head->index);
-			head = head->next;
+			if(ft_strncmp(head->word, "echo", 4) == 0)
+				echo_builtin(head);
+			else
+				head = head->next;
 		}
 	//	parsing(&head, &cmds);
 		// while(cmds)
@@ -43,6 +46,7 @@ int main(void)
 	free(rl);
 	return (0);
 }
-              ///////////----- LAST UPDATE --------/////////
+
+///////////----- LAST UPDATE --------/////////
 //YOU FOUND THAT WHEN FREEING PIPE; IT FREES BUT IT DOES NOT MOVE TO THE NEXT NODE 
 //THIS IS YOU NEXT MISSION.
