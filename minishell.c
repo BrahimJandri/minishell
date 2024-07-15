@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 15:27:41 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/15 15:58:56 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,9 @@ int main(void)
 		first_parse(rl, &head);
 		while(head)
 		{
-			if(ft_strncmp(head->word, "echo", 4) == 0)
-				echo_builtin(head);
-			else
-				head = head->next;
+			printf("word ==> [%s]\ntype ==> [%i]\nindex ==> [%d]\n", head->word, head->token, head->index);
+			head = head->next;
+			printf("\n=================\n");
 		}
 	//	parsing(&head, &cmds);
 		// while(cmds)
