@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:44 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 15:27:09 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:19:19 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,20 @@ void	first_parse(char *rl, t_lexer **head)
 	add_history(rl);
 	if (ft_strncmp(rl, "clear", 5) == 0)
 		clear_screen();
-	else if(ft_strncmp(rl,"pwd", 3) == 0)
-		pwd_builtin();
 	trimmed_rl = ft_strtrim(rl, " \t\n");
 	free(rl);
-	if (trimmed_rl[0] == '|' || trimmed_rl[strlen(trimmed_rl) - 1] == '|')
+	if (trimmed_rl[0] == '|' || trimmed_rl[ft_strlen(trimmed_rl) - 1] == '|')
 	{
-		perror("syntax error near unexpected token '|'\n");
+		printf("syntax error near unexpected token '|'\n");
+		free(trimmed_rl);
 		return ;
 	}
-	rl = trimmed_rl;
-	if (parse_quote(rl))
+	if (parse_quote(trimmed_rl))
 	{
-		perror("Syntax Error: parsing quote error [KO]\n");
+		printf("Syntax Error: parsing quote error [KO]\n");
+		free(trimmed_rl);
 		return ;
 	}
-	split_args(rl, i, inside, head);
+	split_args(trimmed_rl, i, inside, head);
+	free(trimmed_rl);
 }

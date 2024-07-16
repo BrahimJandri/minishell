@@ -6,33 +6,31 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/15 15:58:56 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/15 09:52:37 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int main(void)
 {
-	// t_parser *cmds;
+	t_parser *cmds;
 	char *rl;
 	t_lexer *head;
 
 	head = NULL;
-	// cmds = NULL;
+	cmds = NULL;
 	while (1)
 	{
 		rl = readline("minishell> ");
 		if (!rl)
 			break;
 		first_parse(rl, &head);
-		while(head)
-		{
-			printf("word ==> [%s]\ntype ==> [%i]\nindex ==> [%d]\n", head->word, head->token, head->index);
-			head = head->next;
-			printf("\n=================\n");
-		}
+		// while(head)
+		// {
+		// 	printf("word [%s]  type[%i] index[%d] \n", head->word, head->token, head->index);
+		// 	head = head->next;
+		// }
 	//	parsing(&head, &cmds);
 		// while(cmds)
 		// {
@@ -45,7 +43,6 @@ int main(void)
 	free(rl);
 	return (0);
 }
-
-///////////----- LAST UPDATE --------/////////
+              ///////////----- LAST UPDATE --------/////////
 //YOU FOUND THAT WHEN FREEING PIPE; IT FREES BUT IT DOES NOT MOVE TO THE NEXT NODE 
 //THIS IS YOU NEXT MISSION.

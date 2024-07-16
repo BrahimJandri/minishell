@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:22:04 by bjandri           #+#    #+#             */
-/*   Updated: 2023/11/22 12:22:06 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/16 11:14:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (str);
 }
 
-// #include <stdio.h>
-
-// int main()
-// {
-// 	char s[] = "hide the hide is trimed hide";
-// 	char set[] = "hide";
-// 	printf("%s", ft_strtrim(s, set));
-// }
