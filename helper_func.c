@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helper_func.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/09 16:35:35 by rachid           ###   ########.fr       */
+/*   Updated: 2024/07/16 15:15:43 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,33 @@ int 	is_whitespace(char c)
 	if(c == 32 || (c >= 9 && c <= 13))
 		return 1;
 	return 0;
+}
+
+char *ft_strtok(char *str, const char *delim)
+{
+    static char *s;
+    char *begin;
+    int i;
+
+    if (str != NULL)
+        s = str;
+    if (*s == '\0')
+        return NULL;
+    begin = s;
+    while (*s)
+    {
+        i = 0;
+        while (delim[i])
+        {
+            if (*s == delim[i])
+            {
+                *s = '\0';
+                s++;
+                return begin;
+            }
+            i++;
+        }
+        s++;
+    }
+    return begin;
 }
