@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/17 12:09:26 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/17 12:53:32 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct s_parser
 	e_builtins	builtin;
 	struct s_parser *next;
 	struct s_parser *prev;
-}t_parser;
+}				t_parser;
 
 typedef struct s_mini{
 	int		pipes;
@@ -87,6 +87,7 @@ void 				env_builtin(void);
 void 				execute(t_parser *parser);
 void 				execute_builtin(char **args);
 void 				execute_command(char *command, char **args);
+void				free_parser(t_parser *head);
 
 
 /**************             DAMSSI             *************/

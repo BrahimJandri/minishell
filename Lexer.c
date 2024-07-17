@@ -30,7 +30,6 @@ void	make_words(char *p, int start, int end, t_lexer **head)
 	ft_lstadd_back(head, ft_new_token(word));
 }
 
-
 void	step_one(char *p, int *inside, char *quote, int i)
 {
 	(void)inside;
@@ -61,14 +60,16 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 			step_one(p, &inside, &quote, i);
 			i++;
 		}
-		else if (!inside && (is_whitespace(p[i]) || p[i] == '|' || p[i] == '>' || p[i] == '<'))
+		else if (!inside && (is_whitespace(p[i]) || p[i] == '|' || p[i] == '>'
+				|| p[i] == '<'))
 		{
 			end = i;
 			if (end > start)
 				make_words(p, start, end, head);
 			if (p[i] == '|' || p[i] == '>' || p[i] == '<')
 				make_words(p, i, i + 1, head);
-			while (is_whitespace(p[++i]));
+			while (is_whitespace(p[++i]))
+				;
 			start = i;
 		}
 		else
@@ -77,7 +78,6 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 	if (i > start)
 		make_words(p, start, i, head);
 }
-
 
 void	free_tokens(t_lexer *head)
 {
