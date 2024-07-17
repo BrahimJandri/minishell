@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/16 14:27:53 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/17 12:09:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,9 @@ void 				exit_builtin(char **args);
 void 				unset_builtin(char **args);
 void 				export_builtin(char **args);
 void 				env_builtin(void);
-
-
+void 				execute(t_parser *parser);
+void 				execute_builtin(char **args);
+void 				execute_command(char *command, char **args);
 
 
 /**************             DAMSSI             *************/

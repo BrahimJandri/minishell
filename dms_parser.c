@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:56:16 by rachid            #+#    #+#             */
-/*   Updated: 2024/07/15 09:34:13 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/17 11:27:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ int find_builtin(char *first_word) /**** it checks if the first string in the ar
 	i = 0;
 	while(i < 7)
 	{
-		if(ft_strcmp(builtin_array[i][0], first_word) != 0)
+		if(ft_strncmp(builtin_array[i][0], first_word, ft_strlen(first_word)) != 0)
 			i++;
 		else
 			return(ft_atoi(builtin_array[i][1]));
