@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/16 15:15:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/17 16:02:29 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,23 @@ char	*ft_strtok(char *str, const char *delim)
 		s++;
 	}
 	return (begin);
+}
+
+
+void remove_quotes(char *str)
+{
+    char *src;
+	char *dst;
+	
+	src = str;
+	dst = str;
+    while (*src)
+    {
+        if (*src != '\'' && *src != '"')
+        {
+            *dst++ = *src;
+        }
+        src++;
+    }
+    *dst = '\0';
 }
