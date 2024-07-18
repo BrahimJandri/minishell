@@ -5,9 +5,11 @@ LDFLAGS = -lreadline
 RM = rm -f
 LIBFT = Libft/libft.a
 
-SRC = minishell.c Parser.c Lexer.c helper_func.c builtins.c execution.c dms_parser.c
+SRC_DIR = src
+SRC = $(SRC_DIR)/minishell.c $(SRC_DIR)/Parser.c $(SRC_DIR)/Lexer.c $(SRC_DIR)/helper_func.c $(SRC_DIR)/builtins.c $(SRC_DIR)/execution.c $(SRC_DIR)/dms_parser.c
 
-OBJ = $(SRC:.c=.o)
+OBJ_DIR = obj
+OBJ = $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
@@ -16,9 +18,11 @@ $(NAME): $(OBJ)
 	@make -C Libft
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ) $(LIBFT) $(LDFLAGS)
 
-
-%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c | $(OBJ_DIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+	@mkdir -p $(OBJ_DIR)
 
 clean:
 	@make -C Libft clean
@@ -27,6 +31,7 @@ clean:
 fclean: clean
 	@make -C Libft fclean
 	@$(RM) $(NAME)
+	@rmdir $(OBJ_DIR) 2> /dev/null || true
 
 re: fclean all
 
