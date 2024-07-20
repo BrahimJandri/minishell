@@ -6,14 +6,14 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/18 12:34:01 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/20 12:55:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../Libft/libft.h"
+# include "Libft/libft.h"
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <stdio.h>
@@ -27,16 +27,16 @@ typedef enum s_builtins{
 	UNSET,
 	EXIT,
 	ENV,
-}e_builtins;
+}			e_builtins;
 
 typedef enum s_tokens
 {
 	PIPE = 1,
-	RED_OUT = 2,
-	RED_IN = 3,
-	HERDOC = 4,
-	APP_OUT = 5,
-	ARG = 6,
+	RED_OUT,
+	RED_IN,
+	HERDOC,
+	APP_OUT,
+	ARG,
 }					e_tokens;
 
 typedef struct s_lexer
@@ -58,10 +58,16 @@ typedef struct s_parser
 	struct s_parser *prev;
 }				t_parser;
 
-typedef struct s_mini{
-	int		pipes;
+typedef struct s_mini
+{
+	int			pipes;
+	char 		**envp;
+	char 		**path;
+	char		*rl;
+	t_parser 	*cmds;
+	t_lexer 	*head;
 	
-}t_mini;
+}				t_mini;
 
 /***************************** JANDRI **********************************/
 t_lexer				*ft_new_token(char *content);
@@ -84,12 +90,14 @@ void 				exit_builtin(char **args);
 void 				unset_builtin(char **args);
 void 				export_builtin(char **args);
 void 				env_builtin(void);
-void 				execute(t_parser *parser);
-void 				execute_builtin(char **args);
-void 				execute_command(char *command, char **args);
+void 				execute(t_parser *parser, t_mini *shell);
 void				free_parser(t_parser *head);
 void 				remove_quotes(char *str);
 int 				is_n_flag(char *arg);
+char 				*rm_quote(char *str);
+
+
+
 
 /**************             DAMSSI             *************/
 
@@ -108,6 +116,7 @@ e_tokens    		red_join(e_tokens r1, e_tokens r2);
 int     			redir_kind(t_lexer *lst);
 void 				ft_error(char *message);
 int 				redirection_check(t_lexer *tmp);
+char			 	**arr_dup(char **envm);
 
 
 

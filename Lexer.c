@@ -6,12 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/18 12:33:37 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/20 15:23:18 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/minishell.h"
-
+#include "minishell.h"
 
 void	make_words(char *p, int start, int end, t_lexer **head)
 {
@@ -30,6 +29,7 @@ void	make_words(char *p, int start, int end, t_lexer **head)
 	word[i] = '\0';
 	ft_lstadd_back(head, ft_new_token(word));
 }
+
 
 void	step_one(char *p, int *inside, char *quote, int i)
 {
@@ -54,6 +54,7 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 
 	i = 0;
 	quote = 0;
+	rm_quote(p);
 	while (p[i])
 	{
 		if (p[i] == '"' || p[i] == '\'')
@@ -61,16 +62,14 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 			step_one(p, &inside, &quote, i);
 			i++;
 		}
-		else if (!inside && (is_whitespace(p[i]) || p[i] == '|' || p[i] == '>'
-				|| p[i] == '<'))
+		else if (!inside && (is_whitespace(p[i]) || p[i] == '|' || p[i] == '>' || p[i] == '<'))
 		{
 			end = i;
 			if (end > start)
 				make_words(p, start, end, head);
 			if (p[i] == '|' || p[i] == '>' || p[i] == '<')
 				make_words(p, i, i + 1, head);
-			while (is_whitespace(p[++i]))
-				;
+			while (is_whitespace(p[++i]));
 			start = i;
 		}
 		else
@@ -79,6 +78,7 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 	if (i > start)
 		make_words(p, start, i, head);
 }
+
 
 void	free_tokens(t_lexer *head)
 {

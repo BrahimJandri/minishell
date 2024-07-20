@@ -6,12 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:44 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/18 12:33:23 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/20 11:39:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../header/minishell.h"
-
+#include "minishell.h"
 
 int	type(char *p)
 {
@@ -93,17 +92,4 @@ void	first_parse(char *rl, t_lexer **head)
 	}
 	split_args(trimmed_rl, i, inside, head);
 	free(trimmed_rl);
-}
-
-void	free_parser(t_parser *head)
-{
-	t_parser *tmp;
-
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp->str);
-		free(tmp);
-	}
 }
