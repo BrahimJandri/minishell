@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/20 12:55:42 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/20 16:29:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef struct s_lexer
 	struct s_lexer	*prev;
 }					t_lexer;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}					t_env;
+
 typedef struct s_parser
 {
 	char 		**str;
@@ -64,6 +71,7 @@ typedef struct s_mini
 	char 		**envp;
 	char 		**path;
 	char		*rl;
+	t_env		*env;
 	t_parser 	*cmds;
 	t_lexer 	*head;
 	
@@ -89,13 +97,13 @@ void 				cd_builtin(char **args);
 void 				exit_builtin(char **args);
 void 				unset_builtin(char **args);
 void 				export_builtin(char **args);
-void 				env_builtin(void);
-void 				execute(t_parser *parser, t_mini *shell);
+void 				env_builtin(t_env *env);
+void 				execute(t_parser *parser, t_mini *shell, t_env *env);
 void				free_parser(t_parser *head);
 void 				remove_quotes(char *str);
 int 				is_n_flag(char *arg);
 char 				*rm_quote(char *str);
-
+void 				print_env(t_env *env);
 
 
 

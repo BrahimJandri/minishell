@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:40:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/20 13:22:05 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/20 16:27:20 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,12 @@ void echo_builtin(char **args)
 void cd_builtin(char **args)
 {
     char *path;
-
+    
+    if(args[1] != NULL && args[2] != NULL)
+    {
+        ft_putendl_fd("minishell: cd: too many arguments", 2);
+        return ;
+    }
     if (!args[1])
         path = getenv("HOME");
     else if (!ft_strncmp(args[1], "-", 1))
@@ -113,15 +118,7 @@ void export_builtin(char **args)
 }
 
 
-void env_builtin(void)
+void env_builtin(t_env *env)
 {
-    int i;
-
-    extern char **environ;
-    i = 0;
-    while (environ[i])
-    {
-        ft_putendl_fd(environ[i], 1);
-        i++;
-    }
+    print_env(env);
 }
