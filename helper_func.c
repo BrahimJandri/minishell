@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/21 11:44:22 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/21 11:50:45 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,16 +85,17 @@ char *ft_strtok(char *str, const char *delim)
 
 void remove_quotes(char *str)
 {
-    char *src = str;
-    char *dst = str;
-    bool in_double_quotes = false;
+    char *src;
+    char *dst;
+    bool in_double_quotes;
 
+    in_double_quotes = false;
+    src = str;
+    dst = str;
     while (*src)
     {
         if (*src == '"')
-        {
             in_double_quotes = !in_double_quotes;
-        }
         else if (*src == '\'' && !in_double_quotes)
         {
             src++;
@@ -135,20 +136,22 @@ void	free_parser(t_parser *head)
 	}
 }
 
-char *rm_quote(char *str) {
-    int i = 0;
-    int j = 0;
-    char *dst = str;
+char *rm_quote(char *str)
+{
+    int i;
+    int j;
+    char *dst;
+    
 
-    while (str[i]) {
+    dst = str;
+    j = 0;
+    i = 0;
+    while (str[i])
+    {
         if ((str[i] == '"' && str[i + 1] == '"') || (str[i] == '\'' && str[i + 1] == '\''))
-        {
             i += 2;
-        }
         else
-        {
             dst[j++] = str[i++];
-        }
     }
     dst[j] = '\0';
     return str;

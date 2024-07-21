@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/20 16:33:52 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/21 15:17:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,21 +69,20 @@ t_env *create_env(char **env)
 		tmp = ft_split(env[i], '=');
 		new = ft_new_env(tmp[0], tmp[1]);
 		ft_lstadd(&head, new);
-		// free_array(tmp);
 		i++;
 	}
 	return head;
 }
 
-void print_env(t_env *env)
+void print_env(t_env **env)
 {
-	t_env *tmp;
+	t_env **tmp;
 
 	tmp = env;
 	while (tmp)
 	{
-		printf("%s=%s\n", tmp->key, tmp->value);
-		tmp = tmp->next;
+		printf("%s=%s\n", (*tmp)->key, (*tmp)->value);
+		tmp = &(*tmp)->next;
 	}
 }
 
@@ -107,6 +106,7 @@ void	init_mini(t_mini *shell, char **envm)
 	shell->rl = NULL;	
 	shell->pipes = 0;
 	shell->env = create_env(envm);
+	shell->export = arr_dup(shell->envp);
 }
 
 int main(int ac, char **av, char **envm)
@@ -123,7 +123,7 @@ int main(int ac, char **av, char **envm)
 			break;
 		first_parse(shell.rl, &shell.head);
 		parsing(&shell.head, &shell.cmds);
-		execute(shell.cmds, &shell, shell.env);
+		execute(shell.cmds, &shell, &shell.env);
 		free_tokens(shell.head);
 		free_parser(shell.cmds);
 		shell.head = NULL;

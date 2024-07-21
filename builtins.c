@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 09:40:39 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/20 16:27:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/21 15:14:26 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void echo_builtin(char **args)
         write(1, "\n", 1);
         return ;
     }
-    remove_quotes(args[i]);
     while (args[i] && is_n_flag(args[i]))
     {
         n_flag = 1;
@@ -51,7 +50,47 @@ void echo_builtin(char **args)
         write(1, "\n", 1);
 }
 
-void cd_builtin(char **args)
+char *getenv_value(t_env *env, const char *key)
+{
+    while (env)
+    {
+        if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
+            return env->value;
+        env = env->next;
+    }
+    return NULL;
+}
+
+void setenv_value(t_env **env, const char *key, const char *value)
+{
+    t_env *temp = *env;
+    while (temp)
+    {
+        if (ft_strncmp(temp->key, key, ft_strlen(key)) == 0)
+        {
+            free(temp->value);
+            temp->value = ft_strdup(value);
+            return;
+        }
+        temp = temp->next;
+    }
+
+    t_env *new_node = malloc(sizeof(t_env));
+    new_node->key = ft_strdup(key);
+    new_node->value = ft_strdup(value);
+    new_node->next = *env;
+    *env = new_node;
+}
+
+void update_env(t_env **env, const char *oldpwd, const char *newpwd)
+{
+    if (oldpwd)
+        setenv_value(env, "OLDPWD", oldpwd);
+    if (newpwd)
+        setenv_value(env, "PWD", newpwd);
+}
+
+void cd_builtin(char **args, t_env **env)
 {
     char *path;
     
@@ -70,8 +109,8 @@ void cd_builtin(char **args)
         ft_putendl_fd("minishell: cd: no such file or directory", 2);
     else
     {
-        setenv("OLDPWD", getenv("PWD"), 1);
-        setenv("PWD", path, 1);
+        update_env(env,"OLDPWD", getenv("PWD"));
+        update_env(env,"PWD", path);
     }
 }
 
@@ -98,12 +137,19 @@ void unset_builtin(char **args)
     }
 }
 
-void export_builtin(char **args)
+void export_builtin(char **args, t_mini *shell)
 {
     int i;
     char *key;
     char *value;
+    int j;
 
+    j = 0;
+    if(!args[1])
+    {
+        while(shell->export[j])
+            ft_putendl_fd(shell->export[j++], 1);
+    }
     i = 1;
     while (args[i])
     {
@@ -118,7 +164,7 @@ void export_builtin(char **args)
 }
 
 
-void env_builtin(t_env *env)
+void env_builtin(t_env **env)
 {
     print_env(env);
 }

@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/21 11:33:16 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/21 15:16:57 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+#include <sys/wait.h>
 #include <stdbool.h>
 
 typedef enum s_builtins{
@@ -53,6 +54,8 @@ typedef struct s_env
 {
 	char			*key;
 	char			*value;
+	char			*pwd;
+	char			*oldpwd;
 	struct s_env	*next;
 }					t_env;
 
@@ -73,6 +76,7 @@ typedef struct s_mini
 	char 		**path;
 	char		*rl;
 	t_env		*env;
+	char		**export;
 	t_parser 	*cmds;
 	t_lexer 	*head;
 	
@@ -94,17 +98,17 @@ int 				is_whitespace(char c);
 char 				*ft_strtok(char *str, const char *delim);
 int 				pwd_builtin(void);
 void 				echo_builtin(char **args);
-void 				cd_builtin(char **args);
+void 				cd_builtin(char **args, t_env **env);
 void 				exit_builtin(char **args);
 void 				unset_builtin(char **args);
-void 				export_builtin(char **args);
-void 				env_builtin(t_env *env);
-void 				execute(t_parser *parser, t_mini *shell, t_env *env);
+void 				export_builtin(char **args, t_mini *shell);
+void 				env_builtin(t_env **env);
+void 				execute(t_parser *parser, t_mini *shell, t_env **env);
 void				free_parser(t_parser *head);
 void 				remove_quotes(char *str);
 int 				is_n_flag(char *arg);
 char 				*rm_quote(char *str);
-void 				print_env(t_env *env);
+void 				print_env(t_env **env);
 
 
 
