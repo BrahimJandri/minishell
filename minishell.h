@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/20 16:29:42 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/21 11:33:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <stdio.h>
 # include <stdlib.h>
+#include <stdbool.h>
 
 typedef enum s_builtins{
 	ECHO = 1,

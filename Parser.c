@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:44 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/20 11:39:26 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/21 11:43:11 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	first_parse(char *rl, t_lexer **head)
 		free(trimmed_rl);
 		return ;
 	}
+	rm_quote(trimmed_rl);
 	split_args(trimmed_rl, i, inside, head);
 	free(trimmed_rl);
 }
