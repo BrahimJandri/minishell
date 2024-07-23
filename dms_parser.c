@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dms_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:56:16 by rachid            #+#    #+#             */
-/*   Updated: 2024/07/20 15:38:43 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/20 09:12:06 by rachid           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ int find_builtin(char *first_word) /**** it checks if the first string in the ar
 	i = 0;
 	while(i < 7)
 	{
-		if(ft_strncmp(builtin_array[i][0], first_word, ft_strlen(first_word)) != 0)
+		if(ft_strcmp(builtin_array[i][0], first_word) != 0)
 			i++;
 		else
 			return(ft_atoi(builtin_array[i][1]));

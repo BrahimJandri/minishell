@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 10:03:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/21 11:50:45 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:10:44 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,21 +87,27 @@ void remove_quotes(char *str)
 {
     char *src;
     char *dst;
-    bool in_double_quotes;
+    int in_single_quotes = 0;
+    int in_double_quotes = 0;
 
-    in_double_quotes = false;
     src = str;
     dst = str;
     while (*src)
     {
-        if (*src == '"')
+        if (*src == '"' && !in_single_quotes)
+        {
             in_double_quotes = !in_double_quotes;
+            src++;
+        }
         else if (*src == '\'' && !in_double_quotes)
         {
+            in_single_quotes = !in_single_quotes;
             src++;
-            continue;
         }
-        *dst++ = *src++;
+        else if (!in_single_quotes && !in_double_quotes && (*src == '"' || *src == '\''))
+            src++;
+        else
+            *dst++ = *src++;
     }
     *dst = '\0';
 }
@@ -153,6 +159,8 @@ char *rm_quote(char *str)
         else
             dst[j++] = str[i++];
     }
+    if(j > 0 && (dst[j - 1] == '"' || dst[j - 1] == '\''))
+        j--;
     dst[j] = '\0';
     return str;
 }

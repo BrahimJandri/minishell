@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/21 15:16:57 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/23 19:15:34 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ typedef enum s_builtins{
 	UNSET,
 	EXIT,
 	ENV,
-}			e_builtins;
+}e_builtins;
 
 typedef enum s_tokens
 {
@@ -55,6 +55,7 @@ typedef struct s_env
 	char			*key;
 	char			*value;
 	char			*pwd;
+	int             exported;
 	char			*oldpwd;
 	struct s_env	*next;
 }					t_env;
@@ -76,7 +77,6 @@ typedef struct s_mini
 	char 		**path;
 	char		*rl;
 	t_env		*env;
-	char		**export;
 	t_parser 	*cmds;
 	t_lexer 	*head;
 	
@@ -100,15 +100,18 @@ int 				pwd_builtin(void);
 void 				echo_builtin(char **args);
 void 				cd_builtin(char **args, t_env **env);
 void 				exit_builtin(char **args);
-void 				unset_builtin(char **args);
-void 				export_builtin(char **args, t_mini *shell);
+void 				unset_builtin(char **args, t_env **env);
+void 				export_builtin(char **args, t_env **env);
 void 				env_builtin(t_env **env);
 void 				execute(t_parser *parser, t_mini *shell, t_env **env);
 void				free_parser(t_parser *head);
 void 				remove_quotes(char *str);
 int 				is_n_flag(char *arg);
 char 				*rm_quote(char *str);
-void 				print_env(t_env **env);
+t_env 				*ft_new_env(const char *key, const char *value);
+void				ft_lstadd(t_env **lst, t_env *new);
+t_env 				*create_env(char **env);
+char 				*ft_strnlen(const char *str, char delimiter);
 
 
 

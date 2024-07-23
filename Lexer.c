@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/21 11:41:40 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/23 15:21:52 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 
 	i = 0;
 	quote = 0;
+	rm_quote(p);
 	while (p[i])
 	{
 		if (p[i] == '"' || p[i] == '\'')

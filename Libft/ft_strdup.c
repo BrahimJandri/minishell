@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:18:48 by bjandri           #+#    #+#             */
-/*   Updated: 2023/11/22 12:18:49 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/22 16:59:57 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,3 @@ char	*ft_strdup(const char *s)
 	return (dup);
 }
 
-// #include <stdio.h>
-// #include <string.h>
-
-// int main()
-// {
-// char str[] = "Hello Duplicate Me";
-// printf("%s", ft_strdup(str));
-
-// 	char *str = NULL;
-// 	printf("%s", strdup(str));
-// }

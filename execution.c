@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:19:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/21 15:13:29 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/23 16:27:27 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void execute_command(char *command, char **args, t_mini *shell)
 }
 
 
-void execute_builtin(t_parser *args, t_env **env, t_mini *shell)
+void execute_builtin(t_parser *args, t_env **env)
 {
     if(args->str[0] == NULL || args->str[0][0] == '\0')
         return ;
@@ -100,9 +100,9 @@ void execute_builtin(t_parser *args, t_env **env, t_mini *shell)
     else if(ft_strncmp(args->str[0], "cd", 2) == 0)
         cd_builtin(args->str, env);
     else if(ft_strncmp(args->str[0], "export", 6) == 0)
-        export_builtin(args->str, shell);
+        export_builtin(args->str, env);
     else if(ft_strncmp(args->str[0], "unset", 5) == 0)
-        unset_builtin(args->str);
+        unset_builtin(args->str, env);
     else if(ft_strncmp(args->str[0], "env", 3) == 0)
         env_builtin(env);
     else if(ft_strncmp(args->str[0], "exit", 4) == 0)
@@ -119,7 +119,7 @@ void execute(t_parser *parser, t_mini *shell, t_env **env)
     while (tmp)
     {
         if (tmp->builtin)
-            execute_builtin(tmp, env, shell);
+            execute_builtin(tmp, env);
         else
             execute_command(tmp->str[0], tmp->str, shell);
         tmp = tmp->next;
