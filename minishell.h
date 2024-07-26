@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:10:03 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/23 19:15:34 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/25 15:50:27 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 #include <sys/wait.h>
 #include <stdbool.h>
+#include <signal.h>
 
 typedef enum s_builtins{
 	ECHO = 1,
@@ -29,7 +30,7 @@ typedef enum s_builtins{
 	UNSET,
 	EXIT,
 	ENV,
-}e_builtins;
+}			e_builtins;
 
 typedef enum s_tokens
 {
@@ -55,7 +56,6 @@ typedef struct s_env
 	char			*key;
 	char			*value;
 	char			*pwd;
-	int             exported;
 	char			*oldpwd;
 	struct s_env	*next;
 }					t_env;

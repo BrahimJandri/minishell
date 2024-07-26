@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dms_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rachid <rachid@student.42.fr>              +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 16:56:16 by rachid            #+#    #+#             */
-/*   Updated: 2024/07/20 09:12:06 by rachid           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:51:47 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,7 @@ t_parser *new_cmd(char **cmd)
 	new = malloc(sizeof(t_parser));
 	if (!new)
 		ft_error("malloc failed to allocate");
+	remove_quotes(cmd[0]);
 	new->str = cmd;
 	new->builtin = find_builtin(cmd[0]);
 	new->next = NULL;
