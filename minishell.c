@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/25 15:51:31 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/27 10:05:54 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,50 +14,49 @@
 
 void	init_mini(t_mini *shell, char **envm)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (envm[i])
+	while(envm[i])
 	{
-		if (ft_strncmp("PATH=", envm[i], 5) == 0)
+		if(ft_strncmp("PATH=", envm[i], 5) == 0)
 		{
 			shell->path = ft_split(envm[i] + 5, ':');
-			break ;
+			break;
 		}
 		i++;
 	}
 	shell->envp = arr_dup(envm);
 	shell->cmds = NULL;
 	shell->head = NULL;
-	shell->rl = NULL;
+	shell->rl = NULL;	
 	shell->pipes = 0;
 	shell->env = create_env(envm);
 }
 
-void	handle_sigint(int sig)
+void handle_sigint(int sig)
 {
-	(void)sig;
-	write(STDOUT_FILENO, "\nMiniShell>", 12);
+    (void)sig;
+    write(STDOUT_FILENO, "\nMiniShell>", 12);
 }
 
-void	ft_remove_quotes(t_parser *parse)
+void ft_remove_quotes(t_parser *parse)
 {
-	t_parser	*tmp;
+	t_parser *tmp;
 
 	tmp = parse;
 	remove_quotes(tmp->str[0]);
 }
 
-void	ft_start(t_mini shell)
-{
-	while (1)
+void ft_start(t_mini shell)
+{	
+	while(1)
 	{
 		shell.rl = readline("MiniShell> ");
 		if (!shell.rl)
-			break ;
+			break;
 		first_parse(shell.rl, &shell.head);
 		parsing(&shell.head, &shell.cmds);
-		// ft_remove_quotes(shell.cmds);
 		execute(shell.cmds, &shell, &shell.env);
 		free_tokens(shell.head);
 		free_parser(shell.cmds);
@@ -66,15 +65,15 @@ void	ft_start(t_mini shell)
 	}
 }
 
-int	main(int ac, char **av, char **envm)
+int main(int ac, char **av, char **envm)
 {
-	t_mini	shell;
-
 	(void)ac;
 	(void)av;
-	init_mini(&shell, envm);
+	t_mini	shell;
+	
+	init_mini(&shell,envm);
 	signal(SIGINT, handle_sigint);
-	signal(SIGQUIT, SIG_IGN);
+    signal(SIGQUIT, SIG_IGN);
 	ft_start(shell);
 	free(shell.rl);
 	return (0);

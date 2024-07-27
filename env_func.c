@@ -6,24 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:26:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/23 19:26:30 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/27 10:20:02 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// t_env	*ft_new_env(char *key, char *value)
-// {
-// 	t_env	*new_node;
-
-// 	new_node = (t_env *)malloc(sizeof(t_env));
-// 	if (!new_node)
-// 		return (NULL);
-// 	new_node->key = key;
-// 	new_node->value = value;
-// 	new_node->next = NULL;
-// 	return (new_node);
-// }
 
 void	ft_lstadd(t_env **lst, t_env *new)
 {
@@ -54,6 +41,7 @@ void	free_array(char **array)
 	}
 	free(array);
 }
+
 char	*ft_strnlen(const char *str, char delimiter)
 {
 	int		i;
