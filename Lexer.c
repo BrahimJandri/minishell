@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/29 12:12:25 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/30 10:14:42 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	make_words(char *p, int start, int end, t_lexer **head)
 	ft_lstadd_back(head, ft_new_token(word));
 }
 
-
 void	step_one(char *p, int *inside, char *quote, int i)
 {
 	(void)inside;
@@ -48,23 +47,24 @@ void	step_one(char *p, int *inside, char *quote, int i)
 
 void	split_args(char *p, int start, int inside, t_lexer **head)
 {
-	int		i;
+	int	i;
 
 	i = 0;
-	global.end = 0;
+	g_global.end = 0;
 	rm_quote(p);
 	while (p[i])
 	{
 		if (p[i] == '"' || p[i] == '\'')
-			step_one(p, &inside, &global.quote, i++);
-		else if (!inside && (is_whitespace(p[i]) || p[i] == '|' || p[i] == '>' || p[i] == '<'))
+			step_one(p, &inside, &g_global.quote, i++);
+		else if (!inside && (is_whitespace(p[i]) || (is_redirec(p[i]))))
 		{
-			global.end = i;
-			if (global.end > start)
-				make_words(p, start, global.end, head);
+			g_global.end = i;
+			if (g_global.end > start)
+				make_words(p, start, g_global.end, head);
 			if (p[i] == '|' || p[i] == '>' || p[i] == '<')
 				make_words(p, i, i + 1, head);
-			while (is_whitespace(p[++i]));
+			while (is_whitespace(p[++i]))
+				;
 			start = i;
 		}
 		else
@@ -74,16 +74,16 @@ void	split_args(char *p, int start, int inside, t_lexer **head)
 		make_words(p, start, i, head);
 }
 
-
-void	free_tokens(t_lexer *head)
+int	is_redirec(char c)
 {
-	t_lexer	*tmp;
+	if (c == '|' || c == '>' || c == '<')
+		return (1);
+	return (0);
+}
 
-	while (head)
-	{
-		tmp = head;
-		head = head->next;
-		free(tmp->word);
-		free(tmp);
-	}
+int	is_whitespace(char c)
+{
+	if (c == 32 || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
 }

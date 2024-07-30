@@ -1,28 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   free_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 15:34:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/30 09:47:00 by bjandri          ###   ########.fr       */
+/*   Created: 2024/07/30 10:05:33 by bjandri           #+#    #+#             */
+/*   Updated: 2024/07/30 10:06:16 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+void	free_tokens(t_lexer *head)
 {
-	int	i;
+	t_lexer	*tmp;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	while (head)
 	{
-		if (s1[i] && s1[i] == s2[i])
-			i++;
-		else
-			return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
+		tmp = head;
+		head = head->next;
+		free(tmp->word);
+		free(tmp);
 	}
-	return (0);
+}
+
+void	free_parser(t_parser *head)
+{
+	t_parser	*tmp;
+
+	while (head)
+	{
+		tmp = head;
+		head = head->next;
+		free(tmp->str);
+		free(tmp);
+	}
 }

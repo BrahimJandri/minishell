@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bjandri <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 12:22:19 by bjandri           #+#    #+#             */
-/*   Updated: 2023/11/22 12:22:20 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/30 09:48:00 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,3 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	subst[i] = '\0';
 	return (subst);
 }
-
-// #include <stdio.h>
-
-// int main()
-// {
-// 	char str[] = "this subtring start from here substring is work";
-// 	unsigned int start = 30;
-// 	printf("%s", ft_substr(str, start, sizeof(str)));
-// }

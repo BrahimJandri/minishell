@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/26 15:34:04 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/30 09:47:00 by bjandri          ###   ########.fr       */
+/*   Created: 2024/07/28 10:52:56 by bjandri           #+#    #+#             */
+/*   Updated: 2024/07/30 09:42:01 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	pwd_builtin(void)
 {
-	int	i;
+	char	*buf;
 
-	i = 0;
-	while (s1[i] || s2[i])
+	buf = getcwd(NULL, 0);
+	if (!buf)
 	{
-		if (s1[i] && s1[i] == s2[i])
-			i++;
-		else
-			return ((unsigned char)(s1[i]) - (unsigned char)(s2[i]));
+		ft_putendl_fd("minishell: pwd: error retrieving current directory: \
+		getcwd: cannot access parent directories: ",
+			2);
+		return (1);
 	}
+	ft_putendl_fd(buf, 1);
+	free(buf);
 	return (0);
 }

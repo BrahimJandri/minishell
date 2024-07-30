@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env_func.c                                         :+:      :+:    :+:   */
+/*   node_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:26:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/28 11:05:07 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/30 10:07:29 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,37 @@ void	ft_lstadd(t_env **lst, t_env *new)
 	tmp->next = new;
 }
 
-void	free_array(char **array)
+t_lexer	*ft_new_token(char *content)
 {
-	int	i;
+	t_lexer	*new_node;
 
-	i = 0;
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-char	*ft_strnlen(const char *str, char delimiter)
-{
-	int		i;
-	int		j;
-	char	*result;
-
-	i = 0;
-	j = 0;
-	while (str[i] && str[i] != delimiter)
-		i++;
-	result = malloc(i + 1);
-	if (!result)
+	new_node = (t_lexer *)malloc(sizeof(t_lexer));
+	if (!new_node)
 		return (NULL);
-	while (j < i)
-	{
-		result[j] = str[j];
-		j++;
-	}
-	result[i] = '\0';
-	return (result);
+	new_node->word = content;
+	new_node->token = type(content);
+	new_node->next = NULL;
+	new_node->prev = NULL;
+	return (new_node);
 }
 
+void	ft_lstadd_back(t_lexer **lst, t_lexer *new)
+{
+	static int	i;
+	t_lexer		*tmp;
 
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		i = 0;
+		return ;
+	}
+	tmp = *lst;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+	new->prev = tmp;
+	new->index = ++i;
+}
