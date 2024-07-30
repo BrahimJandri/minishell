@@ -6,12 +6,11 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 13:19:48 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/25 15:52:22 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/29 17:11:35 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void pipe_execution(t_parser *parser, t_mini *shell)
 {
@@ -88,6 +87,59 @@ void execute_command(char *command, char **args, t_mini *shell)
         waitpid(pid, &status, 0);
 }
 
+void    redirection_execution(t_parser *cmds, t_mini *shell)
+{
+    t_parser *tmp;
+    int fd;
+    int status;
+    pid_t pid;
+
+    tmp = cmds;
+    while (tmp)
+    {
+        if (tmp->n_redirections > 0)
+        {
+            fd = open(tmp->redirections->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+            if (fd < 0)
+            {
+                ft_putendl_fd("minishell: failed to open file", 2);
+                return ;
+            }
+            pid = fork();
+            if (pid < 0)
+            {
+                ft_putendl_fd("minishell: fork failed", 2);
+                return ;
+            }
+            if (pid == 0)
+            {
+                dup2(fd, 1);
+                close(fd);
+                execve(tmp->str[0], tmp->str, shell->envp);
+            }
+            else
+            {
+                waitpid(pid, &status, 0);
+                close(fd);
+            }
+        }
+        tmp = tmp->next;
+    }
+    execve(tmp->str[0], tmp->str, shell->envp);
+}
+
+void    ft_heredoc(t_parser *args)
+{
+    if (args->n_redirections > 0)
+    {
+        if (ft_strncmp(args->redirections->word, "<<", 2) == 0)
+        {
+            ft_putstr_fd("heredoc> ", 1);
+            readline(args->redirections->next->word);
+        }
+    }
+}
+
 
 void execute_builtin(t_parser *args, t_env **env)
 {
@@ -115,13 +167,16 @@ void execute(t_parser *parser, t_mini *shell, t_env **env)
 {
     t_parser *tmp;
 
+    (void)shell;
     tmp = parser;
     while (tmp)
     {
-        if (tmp->builtin)
+        if (tmp->n_redirections > 0)
+            ft_heredoc(tmp);
+        else if(tmp->builtin)
             execute_builtin(tmp, env);
-        else
-            execute_command(tmp->str[0], tmp->str, shell);
+        // else
+        //     execute_command(tmp->str[0], tmp->str, shell);
         tmp = tmp->next;
     }
 }

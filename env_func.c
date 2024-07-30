@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 15:26:32 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/27 10:20:02 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/28 11:05:07 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,23 +64,4 @@ char	*ft_strnlen(const char *str, char delimiter)
 	return (result);
 }
 
-t_env	*create_env(char **env)
-{
-	t_env	*head;
-	char	*key;
-	char	*value;
-	int		i;
-	int		res;
 
-	i = 0;
-	head = NULL;
-	while (env[i])
-	{
-		key = ft_strnlen(env[i], '=');
-		res = ft_strlen(key);
-		value = ft_strdup(env[i] + res + 1);
-		ft_lstadd(&head, ft_new_env(key, value));
-		i++;
-	}
-	return (head);
-}

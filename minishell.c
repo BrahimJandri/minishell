@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/19 15:09:51 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/27 10:05:54 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/29 16:56:15 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void ft_start(t_mini shell)
 		shell.rl = readline("MiniShell> ");
 		if (!shell.rl)
 			break;
+		add_history(shell.rl);
 		first_parse(shell.rl, &shell.head);
 		parsing(&shell.head, &shell.cmds);
 		execute(shell.cmds, &shell, &shell.env);

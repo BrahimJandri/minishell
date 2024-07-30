@@ -5,8 +5,10 @@ LDFLAGS = -lreadline
 RM = rm -f
 LIBFT = Libft/libft.a
 
-SRC = minishell.c Parser.c Lexer.c helper_func.c builtins.c execution.c dms_parser.c \
-		env_func.c sort_export.c
+SRC = minishell.c Parser.c Lexer.c helper_func.c execution.c dms_parser.c \
+		env_func.c  ./builtins/ft_cd.c ./builtins/ft_echo.c \
+		./builtins/ft_env.c ./builtins/ft_exit.c ./builtins/ft_export.c \
+		./builtins/ft_pwd.c ./builtins/ft_unset.c ./builtins/ft_export_utils.c \
 
 OBJ = $(SRC:.c=.o)
 

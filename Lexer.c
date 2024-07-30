@@ -6,7 +6,7 @@
 /*   By: bjandri <bjandri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 09:37:11 by bjandri           #+#    #+#             */
-/*   Updated: 2024/07/25 16:12:39 by bjandri          ###   ########.fr       */
+/*   Updated: 2024/07/29 12:12:25 by bjandri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,25 +48,20 @@ void	step_one(char *p, int *inside, char *quote, int i)
 
 void	split_args(char *p, int start, int inside, t_lexer **head)
 {
-	int		end;
 	int		i;
-	char	quote;
 
 	i = 0;
-	quote = 0;
+	global.end = 0;
 	rm_quote(p);
 	while (p[i])
 	{
 		if (p[i] == '"' || p[i] == '\'')
-		{
-			step_one(p, &inside, &quote, i);
-			i++;
-		}
+			step_one(p, &inside, &global.quote, i++);
 		else if (!inside && (is_whitespace(p[i]) || p[i] == '|' || p[i] == '>' || p[i] == '<'))
 		{
-			end = i;
-			if (end > start)
-				make_words(p, start, end, head);
+			global.end = i;
+			if (global.end > start)
+				make_words(p, start, global.end, head);
 			if (p[i] == '|' || p[i] == '>' || p[i] == '<')
 				make_words(p, i, i + 1, head);
 			while (is_whitespace(p[++i]));
